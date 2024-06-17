@@ -1,6 +1,6 @@
 apiVersion: automation.cloudbees.io/v1alpha1
 kind: workflow
-name: slepp
+name: sleep
 on:
   workflow_dispatch:
 jobs:
