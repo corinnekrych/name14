@@ -1,21 +1,21 @@
 apiVersion: automation.cloudbees.io/v1alpha1
 kind: workflow
-name: My automation
+name: Application Release
 
 on:
-  push:
-    branches:
-      - main
-
-      
+  workflow_dispatch:
+    inputs:
+      manifest:
+        type: string
 
 jobs:
-  build:
+  test:
     steps:
-      - name: Build and Test
-        uses: actions/checkout@v3
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v3
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v3
+
+    - id: test
+      name: test
+      uses: docker://alpine/curl:latest
+      run: |
+        echo "Manifest is: $MANIFEST"
+      env:
+        MANIFEST:  "${{ inputs.manifest }}"
